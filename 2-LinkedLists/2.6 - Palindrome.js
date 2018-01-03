@@ -30,3 +30,40 @@ function isEqual(listOneNode, listTwoNode) {
   }
   return true;
 }
+
+
+// Iterative Approach
+
+// Another approach is to iterate through the list and push the first half to a
+// stack. If the size is known this is easy. If the size is not known you can
+// use the fast and slow runner approach.
+
+// The solution assumes that a stack constructor has been defined.
+
+function isPalindrome2(head) {
+  var fast = head;
+  var slow = head;
+
+  var stack = new Stack();
+
+  while (fast && fast.next) {
+    stack.push(slow.data);
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // Has odd number of elements, so skip the middle elements
+  if (fast) {
+    slow = slow.next;
+  }
+
+  while (slow) {
+    var top = stack.pop();
+
+    if (top != slow.data) {
+      return false;
+    }
+    slow = slow.next;
+  }
+  return true;
+}
